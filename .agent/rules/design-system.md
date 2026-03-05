@@ -15,6 +15,17 @@ All code changes related to the UI of this Finance App MUST strictly adhere to t
     - **Warning**: Amber/Orange variants (`var(--warning)`).
     - **Destructive**: Rose/Red variants (`var(--destructive)`).
 
+## 🛠 Styling Methodology
+- **Vanilla CSS Priority**: Prioritize manual CSS styles over Tailwind utility classes. Use Tailwind only for quick layout adjustments if absolutely necessary.
+- **CSS Variables**: ALWAYS use the defined CSS variables (`var(--primary)`, `var(--background)`, etc.) for colors, spacing, and other design tokens. DO NOT use hardcoded hex values or ad-hoc Tailwind colors.
+- **Organization**: Create scoped CSS files or use module-based CSS when possible to keep styles organized and maintainable.
+
+## 📱 Responsiveness
+- **Mobile-First**: All layouts MUST be designed with a mobile-first approach.
+- **Breakpoints**: Use standard breakpoints to ensure seamless transitions between mobile, tablet, and desktop views.
+- **Fluidity**: Prefer fluid layouts (percentages, flexbox, grid) over fixed pixel widths to adapt to different screen sizes.
+- **Touch Targets**: Ensure interactive elements are easily tappable on mobile devices (minimum size 44x44px where possible).
+
 ## 🧱 Component Guidelines
 - **Border Radius**: Always use `rounded-xl` (12px) for cards, buttons, and inputs to maintain a modern, friendly feel.
 - **Spacing**: Use standard Tailwind spacing scales. Ensure generous white space to prevent visual clutter.
