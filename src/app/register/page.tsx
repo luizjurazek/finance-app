@@ -3,10 +3,43 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import api from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirm-password") as string;
+
+    if (password !== confirmPassword) {
+      setError("As senhas não coincidem");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      await api.post("/auth/register", { name, email, password });
+      router.push("/login?registered=true");
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Ocorreu um erro ao criar sua conta");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="layout-center">
@@ -29,7 +62,12 @@ export default function RegisterPage() {
         </div>
 
         <div className="card space-y-6">
-          <form className="space-y-4" action="#" method="POST">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            {error && (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
             <div className="space-y-4">
               <div>
                 <label htmlFor="full-name" className="input-label">
@@ -137,8 +175,8 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <button type="submit" className="btn btn-primary">
-                Criar Conta
+              <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                {isLoading ? "Criando conta..." : "Criar Conta"}
               </button>
             </div>
           </form>
@@ -152,7 +190,7 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <button type="button" className="btn btn-outline">
+          <button type="button" className="btn btn-outline" disabled={isLoading}>
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

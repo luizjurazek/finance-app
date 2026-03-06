@@ -1,11 +1,50 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import api from "@/lib/api";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("registered")) {
+      setSuccess("Conta criada com sucesso! Faça login para continuar.");
+    }
+  }, [searchParams]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const response = await api.post("/auth/login", { email, password });
+      const { access_token } = response.data;
+      
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      
+      router.push("/"); // Redirect to home or dashboard
+    } catch (err: any) {
+      setError(err.response?.data?.message || "E-mail ou senha inválidos");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="layout-center">
@@ -28,7 +67,17 @@ export default function LoginPage() {
         </div>
 
         <div className="card space-y-6">
-          <form className="space-y-4" action="#" method="POST">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            {error && (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            {success && (
+              <Alert variant="success">
+                <AlertDescription>{success}</AlertDescription>
+              </Alert>
+            )}
             <div className="space-y-4">
               <div>
                 <label htmlFor="email-address" className="input-label">
@@ -99,8 +148,8 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <button type="submit" className="btn btn-primary">
-                Entrar
+              <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                {isLoading ? "Entrando..." : "Entrar"}
               </button>
             </div>
           </form>
@@ -114,7 +163,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button type="button" className="btn btn-outline">
+          <button type="button" className="btn btn-outline" disabled={isLoading}>
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
