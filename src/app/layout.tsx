@@ -52,12 +52,7 @@ export default function RootLayout({
                     <AuthProvider>
                         <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
                             <Sidebar />
-                            <div className="flex-1 relative overflow-x-hidden">
-                                <div className="absolute top-4 right-4 z-50">
-                                    <ThemeToggle />
-                                </div>
-                                {children}
-                            </div>
+                            <div className="flex-1 relative overflow-x-hidden">{children}</div>
                         </div>
                     </AuthProvider>
                 </ThemeProvider>

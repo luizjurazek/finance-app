@@ -37,6 +37,7 @@ export const menuItems: MenuItem[] = [
             {
                 title: 'Geral',
                 href: '/reports/general',
+                icon: PieChart,
             },
             {
                 title: 'Metas',

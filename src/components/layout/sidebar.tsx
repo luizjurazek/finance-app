@@ -8,6 +8,7 @@ import { menuItems } from '@/config/menu';
 import { useAuth } from '@/components/auth-context';
 import { SidebarItem } from './sidebarItem';
 import styles from './sidebar.module.css';
+import { ThemeToggle } from '../theme-toggle';
 
 export function Sidebar() {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -19,7 +20,9 @@ export function Sidebar() {
     }
 
     return (
-        <aside className={`${styles.sidebar} ${isCollapsed ? styles.sidebarCollapsed : styles.sidebarExpanded}`}>
+        <aside
+            className={`${styles.sidebar} ${isCollapsed ? styles.sidebarCollapsed + ' sidebar-collapsed' : styles.sidebarExpanded}`}
+        >
             <button onClick={() => setIsCollapsed(!isCollapsed)} className={styles.toggleBtn}>
                 {isCollapsed ? (
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -44,6 +47,7 @@ export function Sidebar() {
             </div>
 
             <div className={styles.footer}>
+                <ThemeToggle />
                 <Link
                     href="/settings"
                     className={styles.settingsLink}

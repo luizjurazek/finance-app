@@ -11,7 +11,7 @@
 }
 
 .sidebarCollapsed {
-    width: 5rem;
+    width: 4.5rem;
 }
 
 .sidebarExpanded {
@@ -126,6 +126,12 @@
     color: var(--muted-foreground);
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    justify-content: flex-start;
+}
+
+:global(.sidebar-collapsed) .settingsLink {
+    justify-content: center;
+    padding: 0.625rem 0;
 }
 
 .settingsLink:hover {
@@ -157,6 +163,12 @@
     background: transparent;
     border: none;
     width: 100%;
+    justify-content: flex-start;
+}
+
+:global(.sidebar-collapsed) .logoutBtn {
+    justify-content: center;
+    padding: 0.625rem 0;
 }
 
 .logoutBtn:hover {
