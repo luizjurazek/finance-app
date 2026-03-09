@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import api from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth-context";
+import { useEffect } from "react";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +15,13 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/");
+    }
+  }, [user, loading, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

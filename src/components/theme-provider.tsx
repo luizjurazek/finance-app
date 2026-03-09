@@ -21,7 +21,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    // Sincronizar classe no HTML e localStorage quando o tema mudar
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
   }, [theme]);

@@ -6,14 +6,32 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import api from "@/lib/api";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/components/auth-context";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { login, user, loading } = useAuth();
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("rememberedEmail");
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setRememberMe(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/");
+    }
+  }, [user, loading, router]);
 
   useEffect(() => {
     if (searchParams.get("registered")) {
@@ -28,17 +46,22 @@ export default function LoginPage() {
     setSuccess(null);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
+    const emailValue = formData.get("email") as string;
     const password = formData.get("password") as string;
 
+    if (rememberMe) {
+      localStorage.setItem("rememberedEmail", emailValue);
+    } else {
+      localStorage.removeItem("rememberedEmail");
+    }
+
     try {
-      const response = await api.post("/auth/login", { email, password });
-      const { access_token } = response.data;
+      const response = await api.post("/auth/login", { email: emailValue, password });
+      const { access_token, user: userData } = response.data;
       
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      login(access_token, userData, rememberMe);
       
-      router.push("/"); // Redirect to home or dashboard
+      router.push("/");
     } catch (err: any) {
       setError(err.response?.data?.message || "E-mail ou senha inválidos");
     } finally {
@@ -90,6 +113,8 @@ export default function LoginPage() {
                   autoComplete="email"
                   required
                   placeholder="seu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -128,6 +153,8 @@ export default function LoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                   style={{
                     height: "1rem",
                     width: "1rem",

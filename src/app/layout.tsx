@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthProvider } from "@/components/auth-context";
 
 export const metadata: Metadata = {
   title: "App de Finanças",
@@ -49,10 +50,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <div className="absolute top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
-          {children}
+          <AuthProvider>
+            <div className="absolute top-4 right-4 z-50">
+              <ThemeToggle />
+            </div>
+            {children}
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
