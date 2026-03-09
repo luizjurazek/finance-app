@@ -192,3 +192,45 @@
     font-weight: 500;
     white-space: nowrap;
 }
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        width: 17rem;
+        transform: translateX(-100%);
+        box-shadow:
+            20px 0 25px -5px rgba(0, 0, 0, 0.1),
+            8px 0 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebarMobileOpen {
+        transform: translateX(0);
+    }
+
+    .toggleBtn {
+        display: none;
+    }
+
+    .sidebarExpanded {
+        width: 17rem;
+    }
+}
+
+.backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 35;
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .backdropVisible {
+        display: block;
+    }
+}

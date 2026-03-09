@@ -1,3 +1,5 @@
+'use client';
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -16,11 +18,34 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { AuthProvider } from '@/components/auth-context';
 import { Sidebar } from '@/components/layout/sidebar';
+import { Navbar } from '@/components/layout/navbar';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
-export const metadata: Metadata = {
-    title: 'App de Finanças',
-    description: 'Gerencie suas finanças com elegância e clareza',
-};
+function LayoutContent({ children }: { children: React.ReactNode }) {
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setIsMobileOpen(false);
+    }, [pathname]);
+
+    const isAuthRoute = pathname === '/login' || pathname === '/register';
+
+    return (
+        <div
+            className={
+                isAuthRoute
+                    ? 'min-h-screen bg-slate-50 dark:bg-slate-950'
+                    : 'flex flex-col md:flex-row min-h-screen bg-slate-50 dark:bg-slate-950'
+            }
+        >
+            <Navbar onToggleMenu={() => setIsMobileOpen(true)} />
+            <Sidebar isMobileOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
+            <main className="flex-1 relative overflow-x-hidden">{children}</main>
+        </div>
+    );
+}
 
 export default function RootLayout({
     children,
@@ -50,10 +75,7 @@ export default function RootLayout({
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <ThemeProvider>
                     <AuthProvider>
-                        <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
-                            <Sidebar />
-                            <div className="flex-1 relative overflow-x-hidden">{children}</div>
-                        </div>
+                        <LayoutContent>{children}</LayoutContent>
                     </AuthProvider>
                 </ThemeProvider>
             </body>
