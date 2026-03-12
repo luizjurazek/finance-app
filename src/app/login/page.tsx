@@ -59,8 +59,10 @@ export default function LoginPage() {
             const { access_token, user: userData } = await authApi.login({ email: emailValue, password });
             login(access_token, userData, rememberMe);
 
+            console.log(access_token, userData);
+
             router.push('/');
-        } catch (err: any) {
+        } catch (err) {
             setError('E-mail ou senha inválidos');
             throw err;
         } finally {

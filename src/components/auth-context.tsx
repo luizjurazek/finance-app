@@ -46,8 +46,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const login = (token: string, userData: User, remember: boolean) => {
         if (remember) {
             localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(userData));
         } else {
             sessionStorage.setItem('token', token);
+            sessionStorage.setItem('user', JSON.stringify(userData));
         }
         setUser(userData);
     };
