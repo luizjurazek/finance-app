@@ -25,11 +25,12 @@ export default function CardsPage() {
 
     return (
         <ProtectedRoute>
-            <div>
+            <div className="p-4">
                 <h1 className="text-2xl font-bold mb-4">Cartões de crédito</h1>
                 <CardsForm onCreated={loadCards} />
             </div>
-            <div>
+            <div className="p-4">
+                <h2 className="text-xl font-semibold mb-4">Seus cartões</h2>
                 <HeroTable columns={columns} rows={cards} />
             </div>
         </ProtectedRoute>
