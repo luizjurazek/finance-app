@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import CardsForm from '@/components/forms/cards/CardsForm';
 import { ProtectedRoute } from '@/components/protected-route';
 import { cardsApi } from '@/api/cards/cards';
-import HeroTable from '@/components/table/HeroTable';
+import HeroTable from '@/components/tables/HeroTable';
 
 export default function CardsPage() {
     const [cards, setCards] = useState([]);

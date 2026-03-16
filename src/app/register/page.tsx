@@ -238,7 +238,7 @@ export default function RegisterPage() {
                     </form>
 
                     <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
+                        <div className="absolute flex items-center">
                             <div className="w-full border-t border-zinc-200 dark:border-zinc-800" />
                         </div>
                         <div className="relative flex justify-center text-sm">
