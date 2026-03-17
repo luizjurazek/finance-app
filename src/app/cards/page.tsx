@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import CardsForm from '@/components/forms/cards/CardsForm';
 import { ProtectedRoute } from '@/components/protected-route';
 import { cardsApi } from '@/api/cards/cards';
-import HeroTable from '@/components/tables/HeroTable';
+import CardsTable from '@/components/tables/CardsTable';
 
 export default function CardsPage() {
     const [cards, setCards] = useState([]);
@@ -23,15 +23,24 @@ export default function CardsPage() {
         loadCards();
     }, []);
 
+    async function handleDelete(id: string, name: string) {
+        try {
+            await cardsApi.deleteCard(Number(id));
+            loadCards();
+        } catch (err) {
+            console.error('Erro ao deletar cartão:', err);
+        }
+    }
+
     return (
         <ProtectedRoute>
             <div className="p-4">
-                <h1 className="text-2xl font-bold mb-4">Cartões de crédito</h1>
+                <h1 className="text-2xl font-bold mb-4 text-foreground">Cartões de crédito</h1>
                 <CardsForm onCreated={loadCards} />
             </div>
             <div className="p-4">
-                <h2 className="text-xl font-semibold mb-4">Seus cartões</h2>
-                <HeroTable columns={columns} rows={cards} />
+                <h2 className="text-xl font-semibold mb-6 text-foreground">Seus cartões</h2>
+                <CardsTable columns={columns} rows={cards} onDelete={handleDelete} />
             </div>
         </ProtectedRoute>
     );
