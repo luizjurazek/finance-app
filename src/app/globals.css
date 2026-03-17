@@ -1,5 +1,5 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -328,8 +328,58 @@ body {
     color: #6ee7b7;
 }
 
+/* Estilos para textos de tabelas */
+.table-text {
+    color: var(--foreground);
+}
+
+.dark .table-text {
+    color: var(--muted-foreground);
+}
+
+/* Estilos para tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--foreground);
+}
+
+thead {
+    color: var(--muted-foreground);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border);
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td,
+th {
+    padding: 0.75rem;
+    text-align: left;
+}
+
+th {
+    font-weight: 600;
+}
+
+.dark table {
+    color: var(--muted-foreground);
+}
+
+.dark thead {
+    color: var(--accent-foreground);
+}
+
+.dark tbody tr {
+    border-bottom: 1px solid var(--input);
+}
+
 @layer base {
-  :root {
+    :root {
         --background: oklch(1 0 0);
         --foreground: oklch(0.145 0 0);
         --card: oklch(1 0 0);
@@ -363,7 +413,7 @@ body {
         --sidebar-border: oklch(0.922 0 0);
         --sidebar-ring: oklch(0.708 0 0);
     }
-  .dark {
+    .dark {
         --background: oklch(0.145 0 0);
         --foreground: oklch(0.985 0 0);
         --card: oklch(0.205 0 0);
