@@ -1,4 +1,4 @@
-import { LayoutDashboard, Wallet, ArrowUpCircle, ArrowDownCircle, PieChart, Target } from 'lucide-react';
+import { LayoutDashboard, Wallet, ArrowUpCircle, ArrowDownCircle, PieChart, Target, CreditCard } from 'lucide-react';
 
 export interface MenuItem {
     title: string;
@@ -12,6 +12,11 @@ export const menuItems: MenuItem[] = [
         title: 'Dashboard',
         href: '/',
         icon: LayoutDashboard,
+    },
+    {
+        title: 'Cartões',
+        href: '/cards',
+        icon: CreditCard,
     },
     {
         title: 'Transações',

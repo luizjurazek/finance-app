@@ -27,7 +27,7 @@ export default function VisualCreditCard({ id, name, closingDay, dueDay, onDelet
                                 <div className="bg-white/20 p-2 rounded-lg backdrop-blur-md">
                                     <CardIcon size={24} />
                                 </div>
-                                <span className="font-bold tracking-tight text-lg opacity-90">FinanceApp</span>
+                                <span className="text-xl font-medium tracking-wider truncate uppercase">{name}</span>
                             </div>
 
                             <DialogModal
@@ -42,7 +42,7 @@ export default function VisualCreditCard({ id, name, closingDay, dueDay, onDelet
                                         className="text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <Trash2 size={24} />
+                                        <Trash2 size={24} className="text-white" />
                                     </Button>
                                 }
                                 onCancel={() => setIsDeleteDialogOpen(false)}
@@ -70,9 +70,6 @@ export default function VisualCreditCard({ id, name, closingDay, dueDay, onDelet
                                     <div className="w-[1px] bg-black/10 h-full" />
                                 </div>
                             </div>
-                            <h3 className="text-xl font-medium tracking-wider truncate uppercase">
-                                {name || 'NOME DO CARTÃO'}
-                            </h3>
                         </div>
 
                         <div className="flex gap-8 text-[10px] uppercase tracking-widest opacity-80 mt-auto">
