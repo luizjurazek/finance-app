@@ -30,6 +30,19 @@ const CurrencyInput = React.forwardRef<HTMLInputElement, CurrencyInputProps>(
         },
         ref,
     ) => {
+        const formatValue = (val: number) => {
+            return new Intl.NumberFormat('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }).format(val);
+        };
+
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const rawValue = e.target.value.replace(/\D/g, '');
+            const numberValue = Number(rawValue) / 100;
+            onValueChange(numberValue);
+        };
+
         return (
             <div className={cn('grid w-full gap-1.5', containerClassName)}>
                 {label && <label className="input-label">{label}</label>}
@@ -46,11 +59,11 @@ const CurrencyInput = React.forwardRef<HTMLInputElement, CurrencyInputProps>(
                     <input
                         {...props}
                         ref={ref}
-                        type="number"
-                        step="0.01"
-                        className="flex-1 bg-transparent border-none outline-none text-base h-full w-full text-foreground placeholder:text-muted-foreground [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                        value={value || ''}
-                        onChange={(e) => onValueChange(Number(e.target.value))}
+                        type="text"
+                        inputMode="numeric"
+                        className="flex-1 bg-transparent border-none outline-none text-base h-full w-full text-foreground placeholder:text-muted-foreground"
+                        value={formatValue(value)}
+                        onChange={handleChange}
                     />
                 </div>
                 {error ? (
