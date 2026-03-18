@@ -30,7 +30,7 @@ const SelectField = React.forwardRef<HTMLButtonElement, SelectFieldProps>(
                     <SelectTrigger
                         ref={ref}
                         className={cn(
-                            'input-field !h-12 w-full rounded-xl border-border bg-background px-4 text-base transition-all outline-none focus:border-ring focus:[box-shadow:0_0_0_2px_var(--background),0_0_0_4px_var(--ring)] flex items-center gap-2',
+                            'input-field !h-12 w-full rounded-xl border-border bg-background px-4 text-base text-foreground transition-all outline-none focus:border-ring focus:[box-shadow:0_0_0_2px_var(--background),0_0_0_4px_var(--ring)] flex items-center gap-2',
                             error &&
                                 'border-destructive focus:border-destructive focus:[box-shadow:0_0_0_2px_var(--background),0_0_0_4px_var(--destructive)]',
                             triggerClassName,

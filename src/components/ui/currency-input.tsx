@@ -48,7 +48,7 @@ const CurrencyInput = React.forwardRef<HTMLInputElement, CurrencyInputProps>(
                         ref={ref}
                         type="number"
                         step="0.01"
-                        className="flex-1 bg-transparent border-none outline-none text-base h-full w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        className="flex-1 bg-transparent border-none outline-none text-base h-full w-full text-foreground placeholder:text-muted-foreground [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         value={value || ''}
                         onChange={(e) => onValueChange(Number(e.target.value))}
                     />

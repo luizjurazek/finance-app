@@ -14,41 +14,13 @@ export const menuItems: MenuItem[] = [
         icon: LayoutDashboard,
     },
     {
+        title: 'Transações',
+        icon: Wallet,
+        href: '/transactions',
+    },
+    {
         title: 'Cartões',
         href: '/cards',
         icon: CreditCard,
-    },
-    {
-        title: 'Transações',
-        icon: Wallet,
-        subItems: [
-            {
-                title: 'Receitas',
-                href: '/transactions/income',
-                icon: ArrowUpCircle,
-            },
-            {
-                title: 'Despesas',
-                href: '/transactions/expense',
-                icon: ArrowDownCircle,
-            },
-        ],
-    },
-    {
-        title: 'Relatórios',
-        href: '/reports',
-        icon: PieChart,
-        subItems: [
-            {
-                title: 'Geral',
-                href: '/reports/general',
-                icon: PieChart,
-            },
-            {
-                title: 'Metas',
-                href: '/reports/goals',
-                icon: Target,
-            },
-        ],
     },
 ];

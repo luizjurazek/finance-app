@@ -27,7 +27,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         {...props}
                         type={type}
                         ref={ref}
-                        className="flex-1 bg-transparent border-none outline-none text-base h-full w-full placeholder:text-muted-foreground disabled:cursor-not-allowed"
+                        className="flex-1 bg-transparent border-none outline-none text-base h-full w-full text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed"
                     />
                 </div>
                 {error ? (
