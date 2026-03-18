@@ -27,7 +27,7 @@ export default function CardsForm({ onCreated }: { onCreated: () => void }) {
     };
 
     return (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
                 <Input
                     id="card-name"

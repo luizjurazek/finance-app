@@ -41,7 +41,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
             <Navbar onToggleMenu={() => setIsMobileOpen(true)} />
             <Sidebar isMobileOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
             <main className="flex-1 relative overflow-x-hidden" style={{ backgroundColor: 'var(--background)' }}>
-                <div className="px-12 py-6 h-full">{children}</div>
+                <div className="px-6 py-4 lg:px-12 lg:py-6 h-full">{children}</div>
             </main>
         </div>
     );
