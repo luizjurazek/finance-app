@@ -19,6 +19,7 @@ import { Sidebar } from '@/components/layout/sidebar';
 import { Navbar } from '@/components/layout/navbar';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import NextBreadcrumb from '@/components/layout/breadcrumb';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
     const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -41,7 +42,17 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
             <Navbar onToggleMenu={() => setIsMobileOpen(true)} />
             <Sidebar isMobileOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
             <main className="flex-1 relative overflow-x-hidden" style={{ backgroundColor: 'var(--background)' }}>
-                <div className="px-6 py-4 lg:px-12 lg:py-6 h-full">{children}</div>
+                <div className="px-6 py-4 lg:px-8 lg:py-4 h-full">
+                    <NextBreadcrumb
+                        homeElement={'Home'}
+                        separator={<span className="text-stone-400 text-sm mx-2"> &gt; </span>}
+                        activeClasses="text-stone-600"
+                        containerClasses="flex"
+                        listClasses="text-stone-400 hover:text-stone-800 text-sm"
+                        capitalizeLinks
+                    />
+                    {children}
+                </div>
             </main>
         </div>
     );

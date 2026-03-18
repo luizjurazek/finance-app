@@ -51,7 +51,7 @@ export default function TransactionsForm() {
     }, []);
 
     return (
-        <div className="max-w-full mx-auto p-4">
+        <div className="max-w-full mx-auto">
             <div>
                 <div className="mb-6 border-b border-border pb-4">
                     <h2 className="text-2xl font-bold">Nova Transação</h2>

@@ -9,7 +9,7 @@ export interface MenuItem {
 
 export const menuItems: MenuItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Home',
         href: '/',
         icon: LayoutDashboard,
     },
