@@ -20,7 +20,6 @@ import {
 
 export default function TransactionsForm() {
     const [name, setName] = useState('');
-    const [date, setDate] = useState('');
     const [purchaseDate, setPurchaseDate] = useState('');
     const [amount, setAmount] = useState(0);
     const [category, setCategory] = useState('');
@@ -87,7 +86,7 @@ export default function TransactionsForm() {
                             <span className="w-1 h-4 bg-primary rounded-full" />
                             Datas e Valores
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="md:col-span-1">
                                 <CurrencyInput
                                     label="Valor"
@@ -97,14 +96,7 @@ export default function TransactionsForm() {
                                 />
                             </div>
                             <Input
-                                label="Data"
-                                type="date"
-                                icon={<Calendar size={18} />}
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                            />
-                            <Input
-                                label="Data da Compra"
+                                label="Data da transação"
                                 type="date"
                                 icon={<CalendarDays size={18} />}
                                 placeholder="Opcional"
