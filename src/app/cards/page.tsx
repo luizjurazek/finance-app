@@ -34,10 +34,7 @@ export default function CardsPage() {
 
     return (
         <ProtectedRoute>
-            <div>
-                <h1 className="text-2xl font-bold mb-4 text-foreground">Cartões de crédito</h1>
-                <CardsForm onCreated={loadCards} />
-            </div>
+            <CardsForm onCreated={loadCards} />
             <div className="mt-4">
                 <h2 className="text-xl font-semibold mb-6 text-foreground">Seus cartões</h2>
                 <CardsTable columns={columns} rows={cards} onDelete={handleDelete} />

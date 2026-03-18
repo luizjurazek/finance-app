@@ -27,44 +27,50 @@ export default function CardsForm({ onCreated }: { onCreated: () => void }) {
     };
 
     return (
-        <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-                <Input
-                    id="card-name"
-                    name="card-name"
-                    type="text"
-                    autoComplete="off"
-                    required
-                    placeholder="Nome do cartão"
-                    onChange={(e) => setCardName(e.target.value)}
-                />
+        <div>
+            <div className="mb-6 border-b border-border pb-4">
+                <h2 className="text-2xl font-bold">Nova Transação</h2>
+                <p className="text-muted-foreground">Preencha os dados abaixo para registrar sua movimentação.</p>
             </div>
-            <div className="flex-1">
-                <Input
-                    id="closing-date"
-                    name="closing-date"
-                    type="number"
-                    autoComplete="off"
-                    required
-                    placeholder="Dia de fechamento"
-                    onChange={(e) => setClosingDate(e.target.value)}
-                />
-            </div>
-            <div className="flex-1">
-                <Input
-                    id="due-date"
-                    name="due-date"
-                    type="number"
-                    autoComplete="off"
-                    required
-                    placeholder="Dia de vencimento"
-                    onChange={(e) => setDueDate(e.target.value)}
-                />
-            </div>
-            <div>
-                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-                    Criar cartão
-                </button>
+            <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex-1">
+                    <Input
+                        id="card-name"
+                        name="card-name"
+                        type="text"
+                        autoComplete="off"
+                        required
+                        placeholder="Nome do cartão"
+                        onChange={(e) => setCardName(e.target.value)}
+                    />
+                </div>
+                <div className="flex-1">
+                    <Input
+                        id="closing-date"
+                        name="closing-date"
+                        type="number"
+                        autoComplete="off"
+                        required
+                        placeholder="Dia de fechamento"
+                        onChange={(e) => setClosingDate(e.target.value)}
+                    />
+                </div>
+                <div className="flex-1">
+                    <Input
+                        id="due-date"
+                        name="due-date"
+                        type="number"
+                        autoComplete="off"
+                        required
+                        placeholder="Dia de vencimento"
+                        onChange={(e) => setDueDate(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+                        Criar cartão
+                    </button>
+                </div>
             </div>
         </div>
     );
