@@ -113,16 +113,16 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
-                        label="Nome"
+                        label={isExpense ? 'Nome da Despesa' : 'Origem / Nome'}
                         icon={<FileText size={18} />}
-                        placeholder="Ex: Aluguel, Supermercado..."
+                        placeholder={isExpense ? 'Ex: Aluguel, Supermercado...' : 'Ex: Salário, Venda, Pix...'}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                     <Input
                         label="Categoria"
                         icon={<Tag size={18} />}
-                        placeholder="Ex: Moradia, Alimentação..."
+                        placeholder={isExpense ? 'Ex: Moradia, Alimentação...' : 'Ex: Trabalho, Renda Extra...'}
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                     />
