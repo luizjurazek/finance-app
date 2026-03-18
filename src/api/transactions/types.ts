@@ -14,10 +14,10 @@ export enum PaymentMethod {
 export interface CreateTransaction {
     name: string;
     date: string;
-    purchaseDate?: string;
     amount: number;
     category: string;
     type: TransactionType;
+    isPaid: boolean;
     paymentMethod: PaymentMethod;
     totalInstallments?: number;
     creditCardId?: number;
