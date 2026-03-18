@@ -91,7 +91,6 @@ export default function TransactionsForm() {
                             <div className="md:col-span-1">
                                 <CurrencyInput
                                     label="Valor"
-                                    icon={<DollarSign size={18} />}
                                     placeholder="0,00"
                                     value={amount}
                                     onValueChange={setAmount}
