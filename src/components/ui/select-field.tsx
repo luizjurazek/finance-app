@@ -1,8 +1,9 @@
 'use client';
 
 import * as React from 'react';
+import clsx from 'clsx';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
+import styles from './select-field.module.css';
 
 export interface SelectFieldOption {
     value: string;
@@ -24,20 +25,20 @@ interface SelectFieldProps extends React.ComponentPropsWithoutRef<typeof Select>
 const SelectField = React.forwardRef<HTMLButtonElement, SelectFieldProps>(
     ({ options, placeholder, label, icon, helperText, error, containerClassName, triggerClassName, ...props }, ref) => {
         return (
-            <div className={cn('grid w-full gap-1.5', containerClassName)}>
+            <div className={clsx('field-group', containerClassName)}>
                 {label && <label className="input-label">{label}</label>}
                 <Select {...props}>
                     <SelectTrigger
                         ref={ref}
-                        className={cn(
-                            'input-field !h-12 w-full rounded-xl border-border bg-background px-4 text-base text-foreground transition-all outline-none focus:border-ring focus:[box-shadow:0_0_0_2px_var(--background),0_0_0_4px_var(--ring)] flex items-center gap-2',
-                            error &&
-                                'border-destructive focus:border-destructive focus:[box-shadow:0_0_0_2px_var(--background),0_0_0_4px_var(--destructive)]',
+                        className={clsx(
+                            'input-field',
+                            styles.trigger,
+                            error && styles.triggerError,
                             triggerClassName,
                         )}
                     >
-                        <div className="flex items-center gap-2 overflow-hidden flex-1 text-left">
-                            {icon && <div className="text-muted-foreground shrink-0">{icon}</div>}
+                        <div className={styles.valueRow}>
+                            {icon && <div className={styles.icon}>{icon}</div>}
                             <SelectValue placeholder={placeholder} />
                         </div>
                     </SelectTrigger>
@@ -52,9 +53,9 @@ const SelectField = React.forwardRef<HTMLButtonElement, SelectFieldProps>(
                     </SelectContent>
                 </Select>
                 {error ? (
-                    <p className="text-sm font-medium text-destructive">{error}</p>
+                    <p className="field-error">{error}</p>
                 ) : helperText ? (
-                    <p className="text-sm text-muted-foreground">{helperText}</p>
+                    <p className="field-helper">{helperText}</p>
                 ) : null}
             </div>
         );

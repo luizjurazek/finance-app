@@ -1,0 +1,33 @@
+.container {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.header tr {
+    border-bottom: 1px solid var(--border);
+}
+
+.footer {
+    border-top: 1px solid var(--border);
+    background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+    font-weight: 500;
+}
+
+.row {
+    transition: background-color 0.2s;
+}
+
+.row:hover {
+    background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+}
+
+.row[data-state='selected'] {
+    background-color: var(--muted);
+}
+
+.caption {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+}

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { cn } from '@/lib/utils';
+import clsx from 'clsx';
+import styles from './input.module.css';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -12,28 +13,18 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ({ className, type, label, icon, error, helperText, containerClassName, ...props }, ref) => {
         return (
-            <div className={cn('grid w-full gap-1.5', containerClassName)}>
+            <div className={clsx('field-group', containerClassName)}>
                 {label && <label className="input-label">{label}</label>}
                 <div
-                    className={cn(
-                        'input-field flex items-center gap-2 transition-all focus-within:border-ring focus-within:[box-shadow:0_0_0_2px_var(--background),0_0_0_4px_var(--ring)]',
-                        error &&
-                            'border-destructive focus-within:border-destructive focus-within:[box-shadow:0_0_0_2px_var(--background),0_0_0_4px_var(--destructive)]',
-                        className,
-                    )}
+                    className={clsx('input-field', styles.wrapper, error && styles.wrapperError, className)}
                 >
-                    {icon && <div className="text-muted-foreground shrink-0">{icon}</div>}
-                    <input
-                        {...props}
-                        type={type}
-                        ref={ref}
-                        className="flex-1 bg-transparent border-none outline-none text-base h-full w-full text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed"
-                    />
+                    {icon && <div className={styles.icon}>{icon}</div>}
+                    <input {...props} type={type} ref={ref} className={styles.field} />
                 </div>
                 {error ? (
-                    <p className="text-sm font-medium text-destructive">{error}</p>
+                    <p className="field-error">{error}</p>
                 ) : helperText ? (
-                    <p className="text-sm text-muted-foreground">{helperText}</p>
+                    <p className="field-helper">{helperText}</p>
                 ) : null}
             </div>
         );

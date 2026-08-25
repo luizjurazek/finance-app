@@ -1,0 +1,40 @@
+.trigger {
+    height: 3rem;
+    width: 100%;
+    border-radius: 0.75rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.trigger:focus {
+    border-color: var(--ring);
+    box-shadow:
+        0 0 0 2px var(--background),
+        0 0 0 4px var(--ring);
+}
+
+.triggerError {
+    border-color: var(--destructive);
+}
+
+.triggerError:focus {
+    border-color: var(--destructive);
+    box-shadow:
+        0 0 0 2px var(--background),
+        0 0 0 4px var(--destructive);
+}
+
+.valueRow {
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    text-align: left;
+}
+
+.icon {
+    color: var(--muted-foreground);
+    flex-shrink: 0;
+}
