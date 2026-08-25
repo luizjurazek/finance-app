@@ -1,30 +1,31 @@
-"use client";
+'use client';
 
-import { useAuth } from "./auth-context";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useAuth } from './auth-context';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import styles from './protected-route.module.css';
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
-  const router = useRouter();
+    const { user, loading } = useAuth();
+    const router = useRouter();
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push("/login");
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login');
+        }
+    }, [user, loading, router]);
+
+    if (loading) {
+        return (
+            <div className={styles.wrapper}>
+                <div className={styles.spinner}></div>
+            </div>
+        );
     }
-  }, [user, loading, router]);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-vh-100">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
+    if (!user) {
+        return null;
+    }
 
-  if (!user) {
-    return null;
-  }
-
-  return <>{children}</>;
+    return <>{children}</>;
 }

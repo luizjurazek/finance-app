@@ -1,0 +1,108 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.wrapper {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.5s ease;
+}
+
+.tabs {
+    display: flex;
+    gap: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1px;
+    margin-bottom: 2.5rem;
+    overflow-x: auto;
+}
+
+.tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.tab {
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    transition: color 0.2s;
+    position: relative;
+    white-space: nowrap;
+    color: var(--muted-foreground);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.tab:hover {
+    color: var(--foreground);
+}
+
+.tabExpenseActive {
+    color: var(--destructive);
+}
+
+.tabExpenseActive:hover {
+    color: var(--destructive);
+}
+
+.tabIncomeActive {
+    color: var(--success);
+}
+
+.tabIncomeActive:hover {
+    color: var(--success);
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-0.5rem);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(0.5rem);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.tabIndicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.125rem;
+    border-radius: 9999px 9999px 0 0;
+}
+
+.tabIndicatorExpense {
+    background-color: var(--destructive);
+    animation: slideInLeft 0.2s ease;
+}
+
+.tabIndicatorIncome {
+    background-color: var(--success);
+    animation: slideInRight 0.2s ease;
+}
+
+.panel {
+    transition: all 0.3s ease;
+}

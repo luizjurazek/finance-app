@@ -1,4 +1,5 @@
 import VisualCreditCard from '@/components/cards/VisualCreditCard';
+import styles from './CardsTable.module.css';
 
 export default function CardsTable({
     rows,
@@ -10,14 +11,14 @@ export default function CardsTable({
 }) {
     if (!rows || rows.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center p-12 border-2 border-dashed border-border rounded-2xl bg-muted/30">
-                <p className="text-muted-foreground font-medium">Nenhum cartão encontrado.</p>
+            <div className={styles.empty}>
+                <p className={styles.emptyText}>Nenhum cartão encontrado.</p>
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className={styles.grid}>
             {rows.map((row) => (
                 <VisualCreditCard
                     key={row.id}

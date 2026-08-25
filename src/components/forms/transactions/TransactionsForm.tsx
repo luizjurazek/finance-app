@@ -1,45 +1,35 @@
 'use client';
 
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
+import clsx from 'clsx';
 import ExpenseForm from './ExpenseForm';
 import IncomeForm from './IncomeForm';
+import styles from './TransactionsForm.module.css';
 
 export default function TransactionsForm() {
     const [type, setType] = useState<'EXPENSE' | 'INCOME'>('EXPENSE');
     const isExpense = type === 'EXPENSE';
 
     return (
-        <div className="max-w-full mx-auto animate-in fade-in duration-500">
-            {/* Minimalist Type Switcher */}
-            <div className="flex gap-8 border-b border-border pb-px mb-10 overflow-x-auto scrollbar-none">
+        <div className={styles.wrapper}>
+            <div className={styles.tabs}>
                 <button
                     onClick={() => setType('EXPENSE')}
-                    className={cn(
-                        'pb-4 px-2 text-sm font-bold transition-all relative whitespace-nowrap',
-                        isExpense ? 'text-destructive' : 'text-muted-foreground hover:text-foreground',
-                    )}
+                    className={clsx(styles.tab, isExpense && styles.tabExpenseActive)}
                 >
                     Nova Despesa
-                    {isExpense && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-destructive animate-in slide-in-from-left-2 rounded-t-full" />
-                    )}
+                    {isExpense && <div className={clsx(styles.tabIndicator, styles.tabIndicatorExpense)} />}
                 </button>
                 <button
                     onClick={() => setType('INCOME')}
-                    className={cn(
-                        'pb-4 px-2 text-sm font-bold transition-all relative whitespace-nowrap',
-                        !isExpense ? 'text-success' : 'text-muted-foreground hover:text-foreground',
-                    )}
+                    className={clsx(styles.tab, !isExpense && styles.tabIncomeActive)}
                 >
                     Nova Receita
-                    {!isExpense && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-success animate-in slide-in-from-right-2 rounded-t-full" />
-                    )}
+                    {!isExpense && <div className={clsx(styles.tabIndicator, styles.tabIndicatorIncome)} />}
                 </button>
             </div>
 
-            <div className="transition-all duration-300">{isExpense ? <ExpenseForm /> : <IncomeForm />}</div>
+            <div className={styles.panel}>{isExpense ? <ExpenseForm /> : <IncomeForm />}</div>
         </div>
     );
 }

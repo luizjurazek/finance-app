@@ -2,6 +2,7 @@
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { cardsApi } from '@/api/cards/cards';
+import styles from './CardsForm.module.css';
 
 export default function CardsForm({ onCreated }: { onCreated: () => void }) {
     const [cardName, setCardName] = useState('');
@@ -28,12 +29,12 @@ export default function CardsForm({ onCreated }: { onCreated: () => void }) {
 
     return (
         <div>
-            <div className="mb-6 border-b border-border pb-4">
-                <h2 className="text-2xl font-bold">Nova Transação</h2>
-                <p className="text-muted-foreground">Preencha os dados abaixo para registrar sua movimentação.</p>
+            <div className={styles.header}>
+                <h2 className={styles.title}>Nova Transação</h2>
+                <p className={styles.subtitle}>Preencha os dados abaixo para registrar sua movimentação.</p>
             </div>
-            <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1">
+            <div className={styles.row}>
+                <div className={styles.field}>
                     <Input
                         id="card-name"
                         name="card-name"
@@ -44,7 +45,7 @@ export default function CardsForm({ onCreated }: { onCreated: () => void }) {
                         onChange={(e) => setCardName(e.target.value)}
                     />
                 </div>
-                <div className="flex-1">
+                <div className={styles.field}>
                     <Input
                         id="closing-date"
                         name="closing-date"
@@ -55,7 +56,7 @@ export default function CardsForm({ onCreated }: { onCreated: () => void }) {
                         onChange={(e) => setClosingDate(e.target.value)}
                     />
                 </div>
-                <div className="flex-1">
+                <div className={styles.field}>
                     <Input
                         id="due-date"
                         name="due-date"

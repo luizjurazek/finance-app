@@ -6,28 +6,29 @@ import { DialogModal } from '@/components/ui/dialog';
 import { useState } from 'react';
 import type { VisualCreditCardProps } from './visualCreditCardType';
 import getCardColors from './GetCardCalors';
+import styles from './VisualCreditCard.module.css';
 
 export default function VisualCreditCard({ id, name, closingDay, dueDay, onDelete }: VisualCreditCardProps) {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const backgroundGradient = getCardColors(id, name, closingDay, dueDay);
 
     return (
-        <div className="group relative h-56 w-full max-w-[360px] perspective-1000 justify-self-center">
-            <div className="relative h-full w-full">
+        <div className={styles.wrapper}>
+            <div className={styles.inner}>
                 <div
-                    className="absolute inset-0 rounded-2xl p-6 shadow-2xl transition-all duration-300 overflow-hidden"
+                    className={styles.face}
                     style={{
                         background: backgroundGradient,
                     }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50" />
-                    <div className="relative h-full flex flex-col justify-between text-white">
-                        <div className="flex justify-between items-start">
-                            <div className="flex items-center gap-2">
-                                <div className="bg-white/20 p-2 rounded-lg backdrop-blur-md">
+                    <div className={styles.sheen} />
+                    <div className={styles.content}>
+                        <div className={styles.header}>
+                            <div className={styles.identity}>
+                                <div className={styles.iconBox}>
                                     <CardIcon size={24} />
                                 </div>
-                                <span className="text-xl font-medium tracking-wider truncate uppercase">{name}</span>
+                                <span className={styles.name}>{name}</span>
                             </div>
 
                             <DialogModal
@@ -39,10 +40,10 @@ export default function VisualCreditCard({ id, name, closingDay, dueDay, onDelet
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
+                                        className={styles.deleteButton}
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <Trash2 size={24} className="text-white" />
+                                        <Trash2 size={24} />
                                     </Button>
                                 }
                                 onCancel={() => setIsDeleteDialogOpen(false)}
@@ -57,29 +58,29 @@ export default function VisualCreditCard({ id, name, closingDay, dueDay, onDelet
                             />
                         </div>
 
-                        <div className="mt-4">
-                            <div className="w-12 h-9 bg-yellow-400/80 rounded-md mb-4 shadow-inner relative overflow-hidden">
-                                <div className="absolute inset-0 flex flex-col justify-around">
-                                    <div className="h-[1px] bg-black/10 w-full" />
-                                    <div className="h-[1px] bg-black/10 w-full" />
-                                    <div className="h-[1px] bg-black/10 w-full" />
+                        <div className={styles.chipWrapper}>
+                            <div className={styles.chip}>
+                                <div className={styles.chipLines}>
+                                    <span />
+                                    <span />
+                                    <span />
                                 </div>
-                                <div className="absolute inset-0 flex justify-around">
-                                    <div className="w-[1px] bg-black/10 h-full" />
-                                    <div className="w-[1px] bg-black/10 h-full" />
-                                    <div className="w-[1px] bg-black/10 h-full" />
+                                <div className={styles.chipColumns}>
+                                    <span />
+                                    <span />
+                                    <span />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex gap-8 text-[10px] uppercase tracking-widest opacity-80 mt-auto">
+                        <div className={styles.footer}>
                             <div>
-                                <p className="mb-1 text-[8px] font-bold">Fechamento</p>
-                                <p className="text-sm font-semibold">Dia {closingDay}</p>
+                                <p className={styles.footerLabel}>Fechamento</p>
+                                <p className={styles.footerValue}>Dia {closingDay}</p>
                             </div>
                             <div>
-                                <p className="mb-1 text-[8px] font-bold">Vencimento</p>
-                                <p className="text-sm font-semibold">Dia {dueDay}</p>
+                                <p className={styles.footerLabel}>Vencimento</p>
+                                <p className={styles.footerValue}>Dia {dueDay}</p>
                             </div>
                         </div>
                     </div>

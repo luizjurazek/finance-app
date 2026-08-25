@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { SelectField } from '@/components/ui/select-field';
 import { CurrencyInput } from '@/components/ui/currency-input';
 import { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import { cardsApi } from '@/api/cards/cards';
 import { PAYMENT_METHODS, INCOME_PAYMENT_METHODS } from './types';
 import {
@@ -20,11 +21,23 @@ import {
 } from 'lucide-react';
 import { transactionsApi } from '@/api/transactions/transactions';
 import { useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import styles from './BaseTransactionForm.module.css';
 
 interface BaseTransactionFormProps {
     type: 'EXPENSE' | 'INCOME';
 }
+
+const statusClass = {
+    unpaid: styles.statusPillUnpaid,
+    paidExpense: styles.statusPillPaidExpense,
+    paidIncome: styles.statusPillPaidIncome,
+};
+
+const statusIconClass = {
+    unpaid: styles.statusIconUnpaid,
+    paidExpense: styles.statusIconPaidExpense,
+    paidIncome: styles.statusIconPaidIncome,
+};
 
 export default function BaseTransactionForm({ type }: BaseTransactionFormProps) {
     const router = useRouter();
@@ -41,6 +54,8 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
 
     const [loading, setLoading] = useState(false);
     const [creditCards, setCreditCards] = useState<{ value: string; label: string }[]>([]);
+
+    const statusKey = !isPaid ? 'unpaid' : isExpense ? 'paidExpense' : 'paidIncome';
 
     useEffect(() => {
         async function getCards() {
@@ -95,23 +110,18 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
     };
 
     return (
-        <form className="space-y-8 animate-in fade-in duration-500" onSubmit={handleSubmit}>
-            <div className="space-y-4">
+        <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.section}>
                 <h3
-                    className={cn(
-                        'text-sm font-semibold uppercase tracking-wider flex items-center gap-2 transition-colors',
-                        isExpense ? 'text-destructive' : 'text-success',
+                    className={clsx(
+                        styles.sectionLabel,
+                        isExpense ? styles.sectionLabelExpense : styles.sectionLabelIncome,
                     )}
                 >
-                    <span
-                        className={cn(
-                            'w-1.5 h-5 rounded-full transition-colors',
-                            isExpense ? 'bg-destructive' : 'bg-success',
-                        )}
-                    />
+                    <span className={clsx(styles.sectionDot, isExpense ? styles.sectionDotExpense : styles.sectionDotIncome)} />
                     Identificação
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className={styles.fieldRow}>
                     <Input
                         label={isExpense ? 'Nome da Despesa' : 'Origem / Nome'}
                         icon={<FileText size={18} />}
@@ -129,25 +139,18 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className={styles.section}>
                 <h3
-                    className={cn(
-                        'text-sm font-semibold uppercase tracking-wider flex items-center gap-2 transition-colors',
-                        isExpense ? 'text-destructive' : 'text-success',
+                    className={clsx(
+                        styles.sectionLabel,
+                        isExpense ? styles.sectionLabelExpense : styles.sectionLabelIncome,
                     )}
                 >
-                    <span
-                        className={cn(
-                            'w-1.5 h-5 rounded-full transition-colors',
-                            isExpense ? 'bg-destructive' : 'bg-success',
-                        )}
-                    />
+                    <span className={clsx(styles.sectionDot, isExpense ? styles.sectionDotExpense : styles.sectionDotIncome)} />
                     Datas e Valores
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="md:col-span-1">
-                        <CurrencyInput label="Valor" placeholder="0,00" value={amount} onValueChange={setAmount} />
-                    </div>
+                <div className={styles.fieldRow}>
+                    <CurrencyInput label="Valor" placeholder="0,00" value={amount} onValueChange={setAmount} />
                     <Input
                         label="Data da transação"
                         type="date"
@@ -158,71 +161,43 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className={styles.section}>
                 <h3
-                    className={cn(
-                        'text-sm font-semibold uppercase tracking-wider flex items-center gap-2 transition-colors',
-                        isExpense ? 'text-destructive' : 'text-success',
+                    className={clsx(
+                        styles.sectionLabel,
+                        isExpense ? styles.sectionLabelExpense : styles.sectionLabelIncome,
                     )}
                 >
-                    <span
-                        className={cn(
-                            'w-1.5 h-5 rounded-full transition-colors',
-                            isExpense ? 'bg-destructive' : 'bg-success',
-                        )}
-                    />
+                    <span className={clsx(styles.sectionDot, isExpense ? styles.sectionDotExpense : styles.sectionDotIncome)} />
                     Status
                 </h3>
                 <div
                     onClick={() => setIsPaid(!isPaid)}
-                    className={cn(
-                        'group flex items-center gap-3 p-2.5 px-4 rounded-xl border transition-all cursor-pointer select-none w-fit min-w-[180px]',
-                        isPaid
-                            ? isExpense
-                                ? 'border-destructive/30 bg-destructive/5 text-destructive'
-                                : 'border-success/30 bg-success/5 text-success'
-                            : 'border-border bg-muted/10 text-muted-foreground hover:border-border/80',
-                    )}
+                    className={clsx(styles.statusPill, statusClass[statusKey])}
                 >
-                    <div
-                        className={cn(
-                            'w-8 h-8 rounded-full flex items-center justify-center transition-all shrink-0',
-                            isPaid
-                                ? isExpense
-                                    ? 'bg-destructive text-white shadow-sm shadow-destructive/20'
-                                    : 'bg-success text-white shadow-sm shadow-success/20'
-                                : 'bg-muted text-muted-foreground group-hover:bg-muted/50',
-                        )}
-                    >
+                    <div className={clsx(styles.statusIcon, statusIconClass[statusKey])}>
                         {isPaid ? <CheckCircle size={18} /> : <XCircle size={18} />}
                     </div>
-                    <div className="flex flex-col">
-                        <span className={cn('font-bold text-sm tracking-tight', isPaid ? 'opacity-100' : 'opacity-70')}>
+                    <div className={styles.statusTextGroup}>
+                        <span className={clsx(styles.statusLabel, isPaid && styles.statusLabelActive)}>
                             {isPaid ? (isExpense ? 'Pago' : 'Recebido') : 'Pendente'}
                         </span>
-                        <span className="text-[10px] uppercase font-bold opacity-50 tracking-widest leading-none">
-                            Status
-                        </span>
+                        <span className={styles.statusCaption}>Status</span>
                     </div>
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className={styles.section}>
                 <h3
-                    className={cn(
-                        'text-sm font-semibold uppercase tracking-wider flex items-center gap-2 transition-colors',
-                        isExpense ? 'text-destructive' : 'text-success',
+                    className={clsx(
+                        styles.sectionLabel,
+                        isExpense ? styles.sectionLabelExpense : styles.sectionLabelIncome,
                     )}
                 >
-                    <span
-                        className={cn(
-                            'w-1.5 h-5 rounded-full transition-colors',
-                            isExpense ? 'bg-destructive' : 'bg-success',
-                        )}
-                    />
+                    <span className={clsx(styles.sectionDot, isExpense ? styles.sectionDotExpense : styles.sectionDotIncome)} />
                     {isExpense ? 'Pagamento' : 'Recebimento'}
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className={styles.fieldRow}>
                     <SelectField
                         label={isExpense ? 'Método de Pagamento' : 'Método de Recebimento'}
                         icon={<Wallet size={18} />}
@@ -240,7 +215,7 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
                 </div>
 
                 {isExpense && paymentMethod === 'CREDIT_CARD' && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div className={clsx(styles.fieldRow, styles.installmentRow)}>
                         <Input
                             label="Total de Parcelas"
                             type="number"
@@ -261,15 +236,14 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
                 )}
             </div>
 
-            <div className="pt-4">
+            <div className={styles.submitRow}>
                 <button
                     type="submit"
                     disabled={loading}
-                    className={cn(
-                        'btn h-12 w-full md:w-auto px-10 flex items-center justify-center gap-2 text-lg shadow-lg transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100',
-                        isExpense
-                            ? 'bg-destructive text-destructive-foreground shadow-destructive/20 hover:shadow-destructive/40'
-                            : 'bg-success text-success-foreground shadow-success/20 hover:shadow-success/40',
+                    className={clsx(
+                        'btn',
+                        styles.submitButton,
+                        isExpense ? styles.submitButtonExpense : styles.submitButtonIncome,
                     )}
                 >
                     {loading ? <Loader2 size={20} className="animate-spin" /> : <Plus size={20} />}
