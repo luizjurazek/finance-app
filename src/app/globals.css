@@ -1,8 +1,58 @@
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Base reset (replaces what Tailwind Preflight used to provide) */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+}
+
+body {
+    font-family:
+        var(--font-geist-sans),
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        sans-serif;
+    line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    color: inherit;
+}
+
+button {
+    background-color: transparent;
+    background-image: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
 
 :root {
     /* Base */
