@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import authApi from '@/api/auth/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/components/auth-context';
+import styles from '../auth-form.module.css';
 
 export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -70,17 +71,15 @@ export default function LoginPage() {
 
     return (
         <div className="layout-center">
-            <div className="w-full max-w-md space-y-8">
-                <div className="flex flex-col items-center">
-                    <Image className="dark:invert mb-6" src="/next.svg" alt="Logo" width={120} height={24} priority />
-                    <h2 className="text-center text-3xl font-bold tracking-tight text-foreground">Bem vindo</h2>
-                    <p className="mt-2 text-center text-sm text-muted-foreground">
-                        Gerencie suas finanças com clareza e segurança
-                    </p>
+            <div className={styles.wrapper}>
+                <div className={styles.brand}>
+                    <Image className={styles.logo} src="/next.svg" alt="Logo" width={120} height={24} priority />
+                    <h2 className={styles.title}>Bem vindo</h2>
+                    <p className={styles.subtitle}>Gerencie suas finanças com clareza e segurança</p>
                 </div>
 
-                <div className="card space-y-6">
-                    <form className="space-y-4" onSubmit={handleSubmit}>
+                <div className={`card ${styles.cardStack}`}>
+                    <form className={styles.formStack} onSubmit={handleSubmit}>
                         {error && (
                             <Alert variant="destructive">
                                 <AlertDescription>{error}</AlertDescription>
@@ -91,7 +90,7 @@ export default function LoginPage() {
                                 <AlertDescription>{success}</AlertDescription>
                             </Alert>
                         )}
-                        <div className="space-y-4">
+                        <div className={styles.formStack}>
                             <div>
                                 <label htmlFor="email-address" className="input-label">
                                     Endereço de E-mail
@@ -163,30 +162,22 @@ export default function LoginPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between px-1">
-                            <div className="flex items-center">
+                        <div className={styles.rowBetween}>
+                            <div className={styles.checkboxRow}>
                                 <input
                                     id="remember-me"
                                     name="remember-me"
                                     type="checkbox"
                                     checked={rememberMe}
                                     onChange={(e) => setRememberMe(e.target.checked)}
-                                    style={{
-                                        height: '1rem',
-                                        width: '1rem',
-                                        borderRadius: '0.25rem',
-                                        cursor: 'pointer',
-                                    }}
+                                    className={styles.checkbox}
                                 />
-                                <label
-                                    htmlFor="remember-me"
-                                    className="ml-2 block text-sm text-muted-foreground cursor-pointer"
-                                >
+                                <label htmlFor="remember-me" className={styles.checkboxLabel}>
                                     Lembrar de mim
                                 </label>
                             </div>
 
-                            <div className="text-sm">
+                            <div className={styles.forgotWrapper}>
                                 <a href="#" className="text-link">
                                     Esqueceu a senha?
                                 </a>
@@ -200,17 +191,17 @@ export default function LoginPage() {
                         </div>
                     </form>
 
-                    <div className="relative">
-                        <div className="absolute flex items-center">
-                            <div className="w-full border-t border-zinc-200 dark:border-zinc-800" />
+                    <div className={styles.divider}>
+                        <div className={styles.dividerLineWrap}>
+                            <div className={styles.dividerLine} />
                         </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="bg-card px-2 text-muted-foreground">Ou continue com</span>
+                        <div className={styles.dividerTextWrap}>
+                            <span className={styles.dividerText}>Ou continue com</span>
                         </div>
                     </div>
 
                     <button type="button" className="btn btn-outline" disabled={isLoading}>
-                        <svg className="h-5 w-5" viewBox="0 0 24 24">
+                        <svg className={styles.googleIcon} viewBox="0 0 24 24">
                             <path
                                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                                 fill="#4285F4"
@@ -232,7 +223,7 @@ export default function LoginPage() {
                     </button>
                 </div>
 
-                <p className="text-center text-sm text-muted-foreground">
+                <p className={styles.footerText}>
                     Não tem uma conta?{' '}
                     <a href="/register" className="text-link">
                         Crie uma conta gratuitamente

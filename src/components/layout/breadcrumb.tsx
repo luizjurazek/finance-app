@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { menuItems, MenuItem } from '@/config/menu';
+import styles from './breadcrumb.module.css';
 
 type TBreadCrumbProps = {
     homeElement: ReactNode;
@@ -26,15 +27,15 @@ const NextBreadcrumb = ({
     const pathNames = paths.split('/').filter((path) => path);
 
     return (
-        <div className="mb-2">
+        <div className={styles.wrapper}>
             <ul className={containerClasses}>
                 <li className={listClasses}>
                     <Link href={'/'}>{homeElement}</Link>
                 </li>
                 {pathNames.length > 0 && separator}
                 {pathNames.map((link, index) => {
-                    let href = `/${pathNames.slice(0, index + 1).join('/')}`;
-                    let itemClasses = paths === href ? `${listClasses} ${activeClasses}` : listClasses;
+                    const href = `/${pathNames.slice(0, index + 1).join('/')}`;
+                    const itemClasses = paths === href ? `${listClasses} ${activeClasses}` : listClasses;
                     let itemLink = capitalizeLinks ? link[0].toUpperCase() + link.slice(1, link.length) : link;
 
                     const menuItem = menuItems.find((item: MenuItem) => item.href === href);

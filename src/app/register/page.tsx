@@ -8,6 +8,7 @@ import authApi from '@/api/auth/auth';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/auth-context';
 import { useEffect } from 'react';
+import styles from '../auth-form.module.css';
 
 export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -53,23 +54,21 @@ export default function RegisterPage() {
 
     return (
         <div className="layout-center">
-            <div className="w-full max-w-md space-y-8">
-                <div className="flex flex-col items-center">
-                    <Image className="dark:invert mb-6" src="/next.svg" alt="Logo" width={120} height={24} priority />
-                    <h2 className="text-center text-3xl font-bold tracking-tight text-foreground">Crie sua conta</h2>
-                    <p className="mt-2 text-center text-sm text-muted-foreground">
-                        Comece a organizar sua vida financeira hoje mesmo
-                    </p>
+            <div className={styles.wrapper}>
+                <div className={styles.brand}>
+                    <Image className={styles.logo} src="/next.svg" alt="Logo" width={120} height={24} priority />
+                    <h2 className={styles.title}>Crie sua conta</h2>
+                    <p className={styles.subtitle}>Comece a organizar sua vida financeira hoje mesmo</p>
                 </div>
 
-                <div className="card space-y-6">
-                    <form className="space-y-4" onSubmit={handleSubmit}>
+                <div className={`card ${styles.cardStack}`}>
+                    <form className={styles.formStack} onSubmit={handleSubmit}>
                         {error && (
                             <Alert variant="destructive">
                                 <AlertDescription>{error}</AlertDescription>
                             </Alert>
                         )}
-                        <div className="space-y-4">
+                        <div className={styles.formStack}>
                             <div>
                                 <label htmlFor="full-name" className="input-label">
                                     Nome Completo
@@ -209,20 +208,9 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-center px-1">
-                            <input
-                                id="terms"
-                                name="terms"
-                                type="checkbox"
-                                required
-                                style={{
-                                    height: '1rem',
-                                    width: '1rem',
-                                    borderRadius: '0.25rem',
-                                    cursor: 'pointer',
-                                }}
-                            />
-                            <label htmlFor="terms" className="ml-2 block text-sm text-muted-foreground cursor-pointer">
+                        <div className={styles.checkboxRow}>
+                            <input id="terms" name="terms" type="checkbox" required className={styles.checkbox} />
+                            <label htmlFor="terms" className={styles.checkboxLabel}>
                                 Eu aceito os{' '}
                                 <a href="#" className="text-link">
                                     Termos de Serviço
@@ -237,17 +225,17 @@ export default function RegisterPage() {
                         </div>
                     </form>
 
-                    <div className="relative">
-                        <div className="absolute flex items-center">
-                            <div className="w-full border-t border-zinc-200 dark:border-zinc-800" />
+                    <div className={styles.divider}>
+                        <div className={styles.dividerLineWrap}>
+                            <div className={styles.dividerLine} />
                         </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="bg-card px-2 text-muted-foreground">Ou cadastre-se com</span>
+                        <div className={styles.dividerTextWrap}>
+                            <span className={styles.dividerText}>Ou cadastre-se com</span>
                         </div>
                     </div>
 
                     <button type="button" className="btn btn-outline" disabled={isLoading}>
-                        <svg className="h-5 w-5" viewBox="0 0 24 24">
+                        <svg className={styles.googleIcon} viewBox="0 0 24 24">
                             <path
                                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                                 fill="#4285F4"
@@ -261,7 +249,7 @@ export default function RegisterPage() {
                                 fill="#FBBC05"
                             />
                             <path
-                                d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                                d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                                 fill="#EA4335"
                             />
                         </svg>
@@ -269,7 +257,7 @@ export default function RegisterPage() {
                     </button>
                 </div>
 
-                <p className="text-center text-sm text-muted-foreground">
+                <p className={styles.footerText}>
                     Já tem uma conta?{' '}
                     <a href="/login" className="text-link">
                         Faça login aqui

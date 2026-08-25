@@ -36,9 +36,9 @@ export function Sidebar({ isMobileOpen, onClose }: SidebarProps) {
             >
                 <button onClick={() => setIsCollapsed(!isCollapsed)} className={styles.toggleBtn}>
                     {isCollapsed ? (
-                        <ChevronRight className="w-3.5 h-3.5" />
+                        <ChevronRight size={14} />
                     ) : (
-                        <ChevronDown className="w-3.5 h-3.5 -rotate-90" />
+                        <ChevronDown size={14} className={styles.toggleIconRotated} />
                     )}
                 </button>
 

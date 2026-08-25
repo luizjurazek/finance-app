@@ -5,6 +5,7 @@ import CardsForm from '@/components/forms/cards/CardsForm';
 import { ProtectedRoute } from '@/components/protected-route';
 import { cardsApi } from '@/api/cards/cards';
 import CardsTable from '@/components/tables/CardsTable';
+import styles from './page.module.css';
 
 export default function CardsPage() {
     const [cards, setCards] = useState([]);
@@ -35,8 +36,8 @@ export default function CardsPage() {
     return (
         <ProtectedRoute>
             <CardsForm onCreated={loadCards} />
-            <div className="mt-4">
-                <h2 className="text-xl font-semibold mb-6 text-foreground">Seus cartões</h2>
+            <div className={styles.section}>
+                <h2 className={styles.sectionTitle}>Seus cartões</h2>
                 <CardsTable columns={columns} rows={cards} onDelete={handleDelete} />
             </div>
         </ProtectedRoute>

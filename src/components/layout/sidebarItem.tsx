@@ -79,7 +79,7 @@ export const SidebarItem = ({
 
                 {!isCollapsed && hasSubItems && (
                     <div className={styles.chevron}>
-                        {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                        {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                     </div>
                 )}
             </Link>

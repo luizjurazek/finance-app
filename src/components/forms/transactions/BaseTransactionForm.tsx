@@ -246,7 +246,7 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
                         isExpense ? styles.submitButtonExpense : styles.submitButtonIncome,
                     )}
                 >
-                    {loading ? <Loader2 size={20} className="animate-spin" /> : <Plus size={20} />}
+                    {loading ? <Loader2 size={20} className={styles.spinner} /> : <Plus size={20} />}
                     {loading ? 'Salvando...' : isExpense ? 'Salvar Despesa' : 'Salvar Receita'}
                 </button>
             </div>

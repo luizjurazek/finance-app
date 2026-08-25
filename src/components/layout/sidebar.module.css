@@ -41,6 +41,10 @@
     color: var(--foreground);
 }
 
+.toggleIconRotated {
+    transform: rotate(-90deg);
+}
+
 .header {
     height: 4rem;
     display: flex;

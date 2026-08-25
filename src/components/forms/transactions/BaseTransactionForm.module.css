@@ -180,6 +180,16 @@
     padding-top: 1rem;
 }
 
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
 .submitButton {
     height: 3rem;
     width: 100%;

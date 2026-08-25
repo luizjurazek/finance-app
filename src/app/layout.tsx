@@ -20,6 +20,8 @@ import { Navbar } from '@/components/layout/navbar';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import NextBreadcrumb from '@/components/layout/breadcrumb';
+import breadcrumbStyles from '@/components/layout/breadcrumb.module.css';
+import styles from './layout.module.css';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
     const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -32,23 +34,17 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     const isAuthRoute = pathname === '/login' || pathname === '/register';
 
     return (
-        <div
-            className={
-                isAuthRoute
-                    ? 'min-h-screen bg-slate-50 dark:bg-slate-950'
-                    : 'flex flex-col md:flex-row min-h-screen bg-slate-50 dark:bg-slate-950'
-            }
-        >
+        <div className={isAuthRoute ? styles.shell : styles.appShell}>
             <Navbar onToggleMenu={() => setIsMobileOpen(true)} />
             <Sidebar isMobileOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
-            <main className="flex-1 relative overflow-x-hidden" style={{ backgroundColor: 'var(--background)' }}>
-                <div className="px-6 py-4 lg:px-8 lg:py-4 h-full">
+            <main className={styles.main}>
+                <div className={styles.mainInner}>
                     <NextBreadcrumb
                         homeElement={'Home'}
-                        separator={<span className="text-stone-400 text-sm mx-2"> &gt; </span>}
-                        activeClasses="text-stone-600"
-                        containerClasses="flex"
-                        listClasses="text-stone-400 hover:text-stone-800 text-sm"
+                        separator={<span className={styles.breadcrumbSeparator}> &gt; </span>}
+                        activeClasses={breadcrumbStyles.itemActive}
+                        containerClasses={breadcrumbStyles.list}
+                        listClasses={breadcrumbStyles.item}
                         capitalizeLinks
                     />
                     {children}
@@ -83,7 +79,7 @@ export default function RootLayout({
                     }}
                 />
             </head>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+            <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <ThemeProvider>
                     <AuthProvider>
                         <LayoutContent>{children}</LayoutContent>

@@ -1,0 +1,41 @@
+.shell {
+    min-height: 100vh;
+    background-color: var(--background);
+}
+
+.appShell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--background);
+}
+
+@media (min-width: 768px) {
+    .appShell {
+        flex-direction: row;
+    }
+}
+
+.main {
+    flex: 1 1 0%;
+    position: relative;
+    overflow-x: hidden;
+    background-color: var(--background);
+}
+
+.mainInner {
+    padding: 1rem 1.5rem;
+    height: 100%;
+}
+
+@media (min-width: 1024px) {
+    .mainInner {
+        padding: 1rem 2rem;
+    }
+}
+
+.breadcrumbSeparator {
+    color: #a8a29e;
+    font-size: 0.875rem;
+    margin: 0 0.5rem;
+}
