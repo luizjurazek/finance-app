@@ -5,7 +5,7 @@ import { SelectField } from '@/components/ui/select-field';
 import { CurrencyInput } from '@/components/ui/currency-input';
 import { useEffect, useState } from 'react';
 import { cardsApi } from '@/api/cards/cards';
-import { PAYMENT_METHODS } from './types';
+import { PAYMENT_METHODS, INCOME_PAYMENT_METHODS } from './types';
 import {
     FileText,
     Tag,
@@ -220,14 +220,14 @@ export default function BaseTransactionForm({ type }: BaseTransactionFormProps) 
                             isExpense ? 'bg-destructive' : 'bg-success',
                         )}
                     />
-                    Pagamento
+                    {isExpense ? 'Pagamento' : 'Recebimento'}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <SelectField
-                        label="Método de Pagamento"
+                        label={isExpense ? 'Método de Pagamento' : 'Método de Recebimento'}
                         icon={<Wallet size={18} />}
                         placeholder="Selecione o Método"
-                        options={PAYMENT_METHODS}
+                        options={isExpense ? PAYMENT_METHODS : INCOME_PAYMENT_METHODS}
                         value={paymentMethod}
                         onValueChange={(value) => {
                             setPaymentMethod(value);

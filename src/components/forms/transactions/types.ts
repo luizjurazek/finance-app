@@ -10,3 +10,9 @@ export const PAYMENT_METHODS = [
     { value: 'CASH', label: 'Dinheiro' },
     { value: 'BANK_TRANSFER', label: 'Transferência Bancária' },
 ];
+
+export const INCOME_PAYMENT_METHODS = [
+    { value: 'PIX', label: 'Pix' },
+    { value: 'CASH', label: 'Dinheiro' },
+    { value: 'BANK_TRANSFER', label: 'Transferência Bancária' },
+];
